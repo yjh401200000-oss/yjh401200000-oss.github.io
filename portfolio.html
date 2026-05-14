@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>윤정현 | SCM·구매관리 전문가</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  :root {
+    --primary: #1a1a2e;
+    --secondary: #16213e;
+    --accent: #0f3460;
+    --highlight: #e94560;
+    --gold: #f5a623;
+    --teal: #00b4d8;
+    --light: #f8f9fa;
+    --muted: #8892a4;
+    --card-bg: #1e2a45;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--primary);
+    color: #e0e6f0;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(26,26,46,0.92);
+    backdrop-filter: blur(12px);
+    padding: 14px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo { font-size: 1.1rem; font-weight: 700; color: var(--teal); letter-spacing: 1px; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: .88rem; font-weight: 500; transition: color .2s; }
+  .nav-links a:hover { color: var(--teal); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 48px 80px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 60%, #0d2137 100%);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(0,180,216,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -150px; left: -150px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(233,69,96,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-content { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-block; background: rgba(0,180,216,0.15); border: 1px solid rgba(0,180,216,0.35);
+    color: var(--teal); padding: 6px 18px; border-radius: 20px; font-size: .82rem; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 900; line-height: 1.1; margin-bottom: 16px;
+    background: linear-gradient(135deg, #ffffff 0%, var(--teal) 60%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.35rem);
+    color: var(--muted); font-weight: 400; margin-bottom: 48px; max-width: 580px;
+  }
+  .hero-sub strong { color: var(--teal); font-weight: 600; }
+
+  .hero-stats {
+    display: flex; gap: 40px; flex-wrap: wrap; margin-bottom: 52px;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-size: 2.8rem; font-weight: 900; line-height: 1;
+    background: linear-gradient(135deg, var(--gold), #ff8c00);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-label { font-size: .78rem; color: var(--muted); font-weight: 500; letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+  .stat-divider { width: 1px; background: rgba(255,255,255,0.1); margin: 0 10px; }
+
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--highlight), #c0392b);
+    color: #fff; padding: 14px 32px; border-radius: 8px;
+    text-decoration: none; font-weight: 700; font-size: .9rem;
+    box-shadow: 0 8px 24px rgba(233,69,96,0.35); transition: transform .2s, box-shadow .2s;
+    letter-spacing: .5px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(233,69,96,0.5); }
+  .btn-secondary {
+    border: 1px solid rgba(0,180,216,0.5); color: var(--teal);
+    padding: 14px 32px; border-radius: 8px; text-decoration: none;
+    font-weight: 600; font-size: .9rem; transition: all .2s; background: rgba(0,180,216,0.05);
+  }
+  .btn-secondary:hover { background: rgba(0,180,216,0.15); border-color: var(--teal); }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 48px; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: .75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900; color: #fff;
+    margin-bottom: 16px; line-height: 1.2;
+  }
+  .section-title span { color: var(--highlight); }
+  .section-desc { color: var(--muted); font-size: 1rem; max-width: 520px; margin-bottom: 64px; }
+
+  /* ── STRENGTH CARDS ── */
+  .strength-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .strength-card {
+    background: var(--card-bg); border-radius: 16px; padding: 32px;
+    border: 1px solid rgba(255,255,255,0.07); transition: transform .25s, border-color .25s;
+    position: relative; overflow: hidden;
+  }
+  .strength-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--teal), var(--highlight));
+  }
+  .strength-card:hover { transform: translateY(-4px); border-color: rgba(0,180,216,0.3); }
+  .card-number {
+    font-size: 3rem; font-weight: 900; line-height: 1;
+    background: linear-gradient(135deg, var(--teal), #0077b6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+  }
+  .card-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 16px; }
+  .card-list { list-style: none; }
+  .card-list li {
+    font-size: .88rem; color: var(--muted); padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .card-list li:last-child { border-bottom: none; }
+  .card-list li::before { content: '▸'; color: var(--teal); flex-shrink: 0; margin-top: 1px; }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 10px; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--teal), transparent);
+  }
+  .timeline-item { position: relative; margin-bottom: 48px; }
+  .timeline-dot {
+    position: absolute; left: -26px; top: 6px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--teal); border: 2px solid var(--primary);
+    box-shadow: 0 0 0 4px rgba(0,180,216,0.2);
+  }
+  .timeline-item.current .timeline-dot {
+    background: var(--highlight);
+    box-shadow: 0 0 0 4px rgba(233,69,96,0.25), 0 0 16px rgba(233,69,96,0.4);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(233,69,96,0.25), 0 0 16px rgba(233,69,96,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(233,69,96,0.1), 0 0 24px rgba(233,69,96,0.5); }
+  }
+  .timeline-card {
+    background: var(--card-bg); border-radius: 12px; padding: 24px 28px;
+    border: 1px solid rgba(255,255,255,0.07); transition: border-color .2s;
+  }
+  .timeline-card:hover { border-color: rgba(0,180,216,0.25); }
+  .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+  .timeline-company { font-size: 1.15rem; font-weight: 700; color: #fff; }
+  .timeline-period { font-size: .78rem; color: var(--teal); font-weight: 600; background: rgba(0,180,216,0.1); padding: 3px 10px; border-radius: 4px; }
+  .timeline-role { font-size: .88rem; color: var(--gold); font-weight: 600; margin-bottom: 12px; }
+  .timeline-desc { font-size: .85rem; color: var(--muted); line-height: 1.7; }
+  .timeline-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .tag {
+    font-size: .75rem; padding: 3px 10px; border-radius: 4px; font-weight: 500;
+    background: rgba(255,255,255,0.06); color: var(--muted); border: 1px solid rgba(255,255,255,0.08);
+  }
+  .tag.highlight { background: rgba(233,69,96,0.12); color: #ff7a91; border-color: rgba(233,69,96,0.25); }
+
+  /* ── ACHIEVEMENTS ── */
+  .achievements { background: var(--secondary); }
+  .ach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .ach-card {
+    background: var(--card-bg); border-radius: 14px; padding: 28px;
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: transform .25s; cursor: default;
+    position: relative; overflow: hidden;
+  }
+  .ach-card:hover { transform: translateY(-3px); }
+  .ach-icon { font-size: 2rem; margin-bottom: 14px; }
+  .ach-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
+  .ach-items { list-style: none; }
+  .ach-items li { font-size: .83rem; color: var(--muted); padding: 4px 0; display: flex; align-items: flex-start; gap: 8px; }
+  .ach-items li::before { content: '✓'; color: var(--teal); flex-shrink: 0; font-weight: 700; }
+  .ach-badge {
+    position: absolute; top: 16px; right: 16px;
+    font-size: .68rem; font-weight: 700; padding: 3px 8px; border-radius: 4px;
+    background: rgba(245,166,35,0.15); color: var(--gold); border: 1px solid rgba(245,166,35,0.3);
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  @media (max-width: 768px) { .skills-grid { grid-template-columns: 1fr; } }
+  .skill-group-title { font-size: .82rem; font-weight: 700; color: var(--teal); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+  .skill-item { margin-bottom: 20px; }
+  .skill-meta { display: flex; justify-content: space-between; font-size: .85rem; margin-bottom: 8px; }
+  .skill-name { color: #e0e6f0; font-weight: 500; }
+  .skill-level { color: var(--teal); font-weight: 600; font-size: .78rem; }
+  .skill-bar { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+  .skill-fill {
+    height: 100%; border-radius: 3px;
+    background: linear-gradient(90deg, var(--teal), #0077b6);
+    width: 0; transition: width 1.2s ease;
+  }
+  .skill-fill.gold { background: linear-gradient(90deg, var(--gold), #e67e22); }
+
+  .cert-list { list-style: none; margin-top: 16px; }
+  .cert-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .cert-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(0,180,216,0.1); border: 1px solid rgba(0,180,216,0.2); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .cert-name { font-size: .9rem; color: #e0e6f0; font-weight: 500; }
+  .cert-org { font-size: .77rem; color: var(--muted); }
+
+  /* ── VISION ── */
+  .vision { background: linear-gradient(135deg, var(--accent), var(--primary)); }
+  .vision-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 768px) { .vision-cards { grid-template-columns: 1fr; } }
+  .vision-card {
+    background: rgba(255,255,255,0.04); border-radius: 16px; padding: 36px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .vision-label { font-size: .75rem; font-weight: 700; letter-spacing: 2px; color: var(--teal); margin-bottom: 12px; text-transform: uppercase; }
+  .vision-title { font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 16px; }
+  .vision-text { font-size: .9rem; color: var(--muted); line-height: 1.9; }
+
+  /* ── CONTACT ── */
+  .contact-bar {
+    background: var(--card-bg);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 64px 48px;
+  }
+  .contact-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 32px; }
+  .contact-left h2 { font-size: 2rem; font-weight: 900; color: #fff; margin-bottom: 8px; }
+  .contact-left p { color: var(--muted); font-size: .9rem; }
+  .contact-items { display: flex; gap: 24px; flex-wrap: wrap; }
+  .contact-item {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; padding: 12px 20px; text-decoration: none; transition: all .2s;
+  }
+  .contact-item:hover { background: rgba(0,180,216,0.1); border-color: rgba(0,180,216,0.3); }
+  .contact-icon { font-size: 1.1rem; }
+  .contact-text { font-size: .85rem; color: #e0e6f0; font-weight: 500; }
+
+  footer {
+    background: var(--primary); text-align: center; padding: 24px;
+    font-size: .78rem; color: var(--muted);
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  /* ── SCROLL ANIMATION ── */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    section, .hero { padding-left: 20px; padding-right: 20px; }
+    .hero-stats { gap: 24px; }
+    .contact-bar { padding: 48px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">YJH · Portfolio</span>
+  <ul class="nav-links">
+    <li><a href="#strength">핵심역량</a></li>
+    <li><a href="#career">경력</a></li>
+    <li><a href="#achievements">성과</a></li>
+    <li><a href="#skills">스킬</a></li>
+    <li><a href="#vision">포부</a></li>
+    <li><a href="#contact">연락처</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">SCM / 구매·자재관리 전문가</div>
+    <h1>윤정현</h1>
+    <p class="hero-sub">
+      10년+의 실전 구매·SCM 경력.<br>
+      <strong>60개사+ 협력사</strong>를 직접 관리하며 단가 협상, 재고체계 수립,<br>
+      제조원가 최적화까지 구매 프로세스 전반을 설계·운영해왔습니다.
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num" data-target="10">0</div>
+        <div class="stat-label">년+ 경력</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="60">0</div>
+        <div class="stat-label">개사+ 협력사</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="5">0</div>
+        <div class="stat-label">개사 근무</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="4">0</div>
+        <div class="stat-label">개 핵심 전문 분야</div>
+      </div>
+    </div>
+
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">연락하기</a>
+      <a href="#achievements" class="btn-secondary">주요 성과 보기</a>
+    </div>
+  </div>
+</section>
+
+<!-- STRENGTH -->
+<section id="strength">
+  <div class="section-inner">
+    <p class="section-label reveal">Core Competencies</p>
+    <h2 class="section-title reveal">10년이 만든 <span>핵심 역량</span> 3가지</h2>
+    <p class="section-desc reveal">단순 발주 담당자가 아닙니다. 프로세스를 직접 설계하고 비용을 줄여온 구매 전문가입니다.</p>
+
+    <div class="strength-grid">
+      <div class="strength-card reveal">
+        <div class="card-number">01</div>
+        <div class="card-title">다품종 부품 단가 협상</div>
+        <ul class="card-list">
+          <li>60개사+ 협력사 견적 요청 ~ 단가 협상 직접 수행</li>
+          <li>MOQ 조건 검토 및 환율 반영 단가 분석</li>
+          <li>단가 인상 요인 분석 및 대응 기안 작성</li>
+          <li>단가 차이 분석 엑셀 체계화로 원가 절감 기여</li>
+        </ul>
+      </div>
+      <div class="strength-card reveal">
+        <div class="card-number">02</div>
+        <div class="card-title">재고 관리 체계 수립</div>
+        <ul class="card-list">
+          <li>신품 / 중고품 / 폐기품 3단계 구분 관리 체계 확립</li>
+          <li>연 1회 정기 재고 실사 기획 · 진행</li>
+          <li>SnS ERP 프로그램 개선으로 월간 실사 체계 구축</li>
+          <li>BOM 체계 정비 및 수불부 관리 운영</li>
+        </ul>
+      </div>
+      <div class="strength-card reveal">
+        <div class="card-number">03</div>
+        <div class="card-title">제조·양산 기반 구매 운영</div>
+        <ul class="card-list">
+          <li>양산 수량 확정 후 선발주 체계 운영</li>
+          <li>납기 조율 및 부속합의서 체결 관리</li>
+          <li>검수 · 정산 전 과정 담당</li>
+          <li>납기 차질 없는 안정적 조달 체계 유지</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER -->
+<section id="career" style="background: var(--secondary);">
+  <div class="section-inner">
+    <p class="section-label reveal">Career History</p>
+    <h2 class="section-title reveal">총 <span>10년 7개월</span>의 경력</h2>
+    <p class="section-desc reveal">한 우물만 판 구매·자재·SCM 전문가의 성장 스토리입니다.</p>
+
+    <div class="timeline">
+
+      <div class="timeline-item current reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <span class="timeline-company">링크 주식회사 (디바이스팀)</span>
+            <span class="timeline-period">2021.06 ~ 재직 중 · 약 4년+</span>
+          </div>
+          <div class="timeline-role">과장 · 구매관리 총괄</div>
+          <div class="timeline-desc">
+            POS / KIOSK / 단말기 등 H/W 장비 및 다품종 부품의 구매·계약 업무 총괄. 신규 단말기 샘플 검증 및 양산 전 품질 확보, 사출 불량·펌웨어 불일치 조기 식별 및 개선, 협력사 공정 개선으로 반복 불량 감소. ERP 재고관리 체계 도입 및 물류사 단가 협상을 통해 물류·원가 절감에 기여.
+          </div>
+          <div class="timeline-tags">
+            <span class="tag highlight">재직 중</span>
+            <span class="tag">구매·계약 총괄</span>
+            <span class="tag">ERP 체계 도입</span>
+            <span class="tag">협력사 60개사+</span>
+            <span class="tag">원가 절감</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <span class="timeline-company">새누</span>
+            <span class="timeline-period">2018.10 ~ 2020.06 · 1년 9개월</span>
+          </div>
+          <div class="timeline-role">주임 · 영업지원</div>
+          <div class="timeline-desc">
+            구매 발주 관리, 거래처 관리, 재고 실사 및 입출고 관리. 사이트 유지보수, 약정/보증/서비스 계약 관리.
+          </div>
+          <div class="timeline-tags">
+            <span class="tag">발주 관리</span>
+            <span class="tag">거래처 관리</span>
+            <span class="tag">재고 실사</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <span class="timeline-company">엠엔에스에스</span>
+            <span class="timeline-period">2017.10 ~ 2018.05 · 8개월</span>
+          </div>
+          <div class="timeline-role">대리 · 자재/구매</div>
+          <div class="timeline-desc">
+            구매·자재관리 전반 (거래처 관리, 발주, CS 대응), 상품 입출고 및 납품 관리, 수입/수출 업무, 월별 자금 관리 및 경리 업무 수행.
+          </div>
+          <div class="timeline-tags">
+            <span class="tag">수입·수출</span>
+            <span class="tag">자금 관리</span>
+            <span class="tag">납품 관리</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <span class="timeline-company">㈜진흥칼라</span>
+            <span class="timeline-period">2015.07 ~ 2017.08 · 2년 2개월</span>
+          </div>
+          <div class="timeline-role">대리 · 구매/자재</div>
+          <div class="timeline-desc">
+            도급업체 관리, ERP 프로그램 개선을 통해 월간 재고실사 및 BOM 체계 정비. 장기재고·불용재고 파악, 생산관리 스케줄 및 납기 조율 관리.
+          </div>
+          <div class="timeline-tags">
+            <span class="tag highlight">ERP 개선 주도</span>
+            <span class="tag">BOM 정비</span>
+            <span class="tag">재고 실사</span>
+            <span class="tag">도급 관리</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <span class="timeline-company">동해산업 ㈜</span>
+            <span class="timeline-period">2014.03 ~ 2015.02 · 1년</span>
+          </div>
+          <div class="timeline-role">팀원 · 생산기술부</div>
+          <div class="timeline-desc">
+            QC / 생산 조립 / 구매자재 / 납품 / AutoCAD. 구매·자재 경력의 출발점.
+          </div>
+          <div class="timeline-tags">
+            <span class="tag">QC</span>
+            <span class="tag">생산 조립</span>
+            <span class="tag">AutoCAD</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements" class="achievements">
+  <div class="section-inner">
+    <p class="section-label reveal">Key Achievements</p>
+    <h2 class="section-title reveal">숫자로 증명한 <span>업무 성과</span></h2>
+    <p class="section-desc reveal">링크(주) 재직 중 직접 설계하고 실행한 4가지 핵심 성과 영역.</p>
+
+    <div class="ach-grid">
+      <div class="ach-card reveal">
+        <div class="ach-badge">생산·제조</div>
+        <div class="ach-icon">🏭</div>
+        <div class="ach-title">생산·제조 관리 및 품질 운영</div>
+        <ul class="ach-items">
+          <li>신규 단말기 샘플 검증 및 양산 전 품질 안정화</li>
+          <li>사출 불량·펌웨어 불일치 조기 식별 & 개선</li>
+          <li>협력사 공정 개선으로 반복 불량 감소</li>
+          <li>납기 차질 없는 정시 납품 체계 유지</li>
+        </ul>
+      </div>
+
+      <div class="ach-card reveal">
+        <div class="ach-badge">재고·물류</div>
+        <div class="ach-icon">📦</div>
+        <div class="ach-title">재고·상품·물류 관리 체계화</div>
+        <ul class="ach-items">
+          <li>신품/중고품/폐기품 3단계 구분 관리 체계 확립</li>
+          <li>정기 재고 실사로 재고 정확도 대폭 향상</li>
+          <li>물류사 단가 협상 및 신규 거래처 발굴</li>
+          <li>수불부 기록 검증으로 재고 흐름 투명화</li>
+        </ul>
+      </div>
+
+      <div class="ach-card reveal">
+        <div class="ach-badge">A/S 운영</div>
+        <div class="ach-icon">🔧</div>
+        <div class="ach-title">장비 A/S 체계 고도화</div>
+        <ul class="ach-items">
+          <li>업체별 A/S 접수·진행·완료 이력 관리 체계화</li>
+          <li>POS·프린터·키오스크·리더기 대체 장비 상시 관리</li>
+          <li>벤더 피드백 기반 동일 문제 재발 방지</li>
+          <li>현장 운영 공백 최소화 달성</li>
+        </ul>
+      </div>
+
+      <div class="ach-card reveal">
+        <div class="ach-badge">원가·정산</div>
+        <div class="ach-icon">💰</div>
+        <div class="ach-title">지출·정산·원가 관리</div>
+        <ul class="ach-items">
+          <li>물품공급계약서 및 부속합의서 작성·관리</li>
+          <li>부품 단가·가공비 포함 제조원가 산출</li>
+          <li>마진율 분석 기반 손익 구조 개선</li>
+          <li>비용 집행 투명성 확보 (경영진 보고 체계)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <p class="section-label reveal">Skills & Qualifications</p>
+    <h2 class="section-title reveal">업무 <span>스킬 & 자격</span></h2>
+    <p class="section-desc reveal">현장에서 직접 쓰고 검증된 도구들입니다.</p>
+
+    <div class="skills-grid">
+      <div>
+        <div class="skill-group-title reveal">업무 역량</div>
+
+        <div class="skill-item reveal">
+          <div class="skill-meta"><span class="skill-name">구매·협상·단가 조율</span><span class="skill-level">상급</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-meta"><span class="skill-name">재고 관리 체계 수립</span><span class="skill-level">상급</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-meta"><span class="skill-name">ERP (SnS ERP) 운영·개선</span><span class="skill-level">상급</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-meta"><span class="skill-name">제조원가 분석 & BOM 관리</span><span class="skill-level">중상급</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="82"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-meta"><span class="skill-name">Excel (단가 분석·수불부·정산)</span><span class="skill-level">중상급</span></div>
+          <div class="skill-bar"><div class="skill-fill gold" data-width="85"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-meta"><span class="skill-name">계약서·품의서·보고서 작성</span><span class="skill-level">상급</span></div>
+          <div class="skill-bar"><div class="skill-fill gold" data-width="90"></div></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-title reveal">자격·학력</div>
+        <ul class="cert-list">
+          <li class="cert-item reveal">
+            <div class="cert-icon">🎓</div>
+            <div>
+              <div class="cert-name">한양사이버대학교 생산유통물류학과</div>
+              <div class="cert-org">대학교 4년제 졸업 · 2024~2026</div>
+            </div>
+          </li>
+          <li class="cert-item reveal">
+            <div class="cert-icon">🚗</div>
+            <div>
+              <div class="cert-name">1종보통 운전면허</div>
+              <div class="cert-org">경찰청 · 2009.07</div>
+            </div>
+          </li>
+          <li class="cert-item reveal">
+            <div class="cert-icon">⚡</div>
+            <div>
+              <div class="cert-name">전기용접기능사</div>
+              <div class="cert-org">한국산업인력공단 · 2008.07</div>
+            </div>
+          </li>
+          <li class="cert-item reveal">
+            <div class="cert-icon">🏅</div>
+            <div>
+              <div class="cert-name">경기도 소방서 표창장</div>
+              <div class="cert-org">경기도 소방서 · 2011.04</div>
+            </div>
+          </li>
+          <li class="cert-item reveal">
+            <div class="cert-icon">🪖</div>
+            <div>
+              <div class="cert-name">육군 병장 만기전역</div>
+              <div class="cert-org">2010.06 ~ 2012.03</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section id="vision" class="vision">
+  <div class="section-inner">
+    <p class="section-label reveal">Vision & Motivation</p>
+    <h2 class="section-title reveal">입사 후 <span>포부</span></h2>
+    <p class="section-desc reveal">단순 실무자가 아닌, 회사의 비용 구조에 직접 영향을 미치는 구매 전문가가 되겠습니다.</p>
+
+    <div class="vision-cards">
+      <div class="vision-card reveal">
+        <div class="vision-label">단기 목표</div>
+        <div class="vision-title">빠른 적응, 즉각적 기여</div>
+        <div class="vision-text">
+          입사 초기에는 회사의 구매 프로세스와 협력사 구조를 빠르게 파악하는 데 집중하겠습니다. 10년간 다양한 업종에서 구매·자재 업무를 수행하며 체득한 프로세스 이해력을 바탕으로, 적응 기간을 최소화하고 실질적인 기여를 시작하겠습니다.
+        </div>
+      </div>
+      <div class="vision-card reveal">
+        <div class="vision-label">중장기 목표</div>
+        <div class="vision-title">데이터 기반 구매 전문가</div>
+        <div class="vision-text">
+          단가 협상과 재고 최적화를 통한 비용 절감, 그리고 협력사 관리 체계 고도화에 기여하겠습니다. 단순 발주 처리에 그치지 않고, 데이터 기반의 단가 분석과 계약 리스크 관리를 통해 회사에 실질적인 가치를 창출하는 구매 전문가로 성장하겠습니다.
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 32px; background: rgba(255,255,255,0.04); border-radius: 14px; padding: 28px 32px; border: 1px solid rgba(255,255,255,0.08); max-width: 680px;" class="reveal">
+      <div style="font-size: .78rem; color: var(--teal); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px;">성격 & 업무 스타일</div>
+      <div style="font-size: .95rem; color: #c8d4e8; line-height: 1.9;">
+        <strong style="color: var(--gold);">꼼꼼함과 실행력의 조합.</strong> 체크리스트 기반의 꼼꼼한 업무 처리로 발주서·계약서·기안서 오류를 사전에 차단하고, 협력사와의 커뮤니케이션에서는 신속한 판단과 결론으로 납기 차질을 막아왔습니다.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-bar" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <h2>함께 일해요</h2>
+      <p>구매·자재·SCM 포지션 적극 검토 중입니다.</p>
+    </div>
+    <div class="contact-items">
+      <a href="mailto:yjh04120@naver.com" class="contact-item">
+        <span class="contact-icon">✉️</span>
+        <span class="contact-text">yjh04120@naver.com</span>
+      </a>
+      <a href="tel:010-3953-4405" class="contact-item">
+        <span class="contact-icon">📱</span>
+        <span class="contact-text">010-3953-4405</span>
+      </a>
+      <div class="contact-item">
+        <span class="contact-icon">📍</span>
+        <span class="contact-text">경기 의정부시</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 윤정현 · SCM / 구매관리 포트폴리오
+</footer>
+
+<script>
+  // 숫자 카운터 애니메이션
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target);
+    const duration = 1800;
+    const step = target / (duration / 16);
+    let current = 0;
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) { current = target; clearInterval(timer); }
+      el.textContent = Math.floor(current);
+    }, 16);
+  }
+
+  // 스킬 바 애니메이션
+  function animateBar(el) {
+    const width = el.dataset.width;
+    setTimeout(() => { el.style.width = width + '%'; }, 100);
+  }
+
+  // Intersection Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+
+        // 숫자 카운터
+        const counters = entry.target.querySelectorAll ? entry.target.querySelectorAll('[data-target]') : [];
+        counters.forEach(animateCounter);
+        if (entry.target.hasAttribute && entry.target.hasAttribute('data-target')) {
+          animateCounter(entry.target);
+        }
+
+        // 스킬 바
+        const bars = entry.target.querySelectorAll ? entry.target.querySelectorAll('.skill-fill') : [];
+        bars.forEach(animateBar);
+        if (entry.target.classList.contains('skill-fill')) animateBar(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  // reveal 요소 관찰
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // 숫자 카운터 (hero stat)
+  const heroObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('[data-target]').forEach(animateCounter);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelector('.hero-stats') && heroObserver.observe(document.querySelector('.hero-stats'));
+</script>
+</body>
+</html>
